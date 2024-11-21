@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的网页代码</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* 确保页面高度至少为视口高度 */
+        }
+        h1 {
+            margin-top: 20px;
+            color: #333;
+            margin: 0 auto;
+        }
+        #search-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        #search-input {
+            width: 80%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        #container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 20px;
+            padding: 0 20px;
+            flex-grow: 1; /* 让内容区尽量扩展 */
+        }
+        .bookmark {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 250px;
+            padding: 15px;
+            box-sizing: border-box;
+            transition: transform 0.3s;
+        }
+        .bookmark:hover {
+            transform: translateY(-5px);
+        }
+        .bookmark h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .bookmark p {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        .bookmark a {
+            display: inline-block;
+            color: #1a73e8;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .bookmark a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            width: 100%;
+            margin-top: 15px; /* 页脚与内容之间的间距 */
+        }
+        .search-result {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .search-result.visible {
+            display: block;
+        }
+        @media (max-width: 768px) {
+            .bookmark {
+                width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>我的网页代码</h1>
+
+    <div id="search-container">
+        <input type="text" id="search-input" placeholder="搜索收藏的网址..." onkeyup="searchBookmarks()">
+        <div id="search-result" class="search-result"></div>
+    </div>
+
+    <div id="container">
+        <!-- 每个网址的展示框 -->
+        
+        <div class="bookmark">
+            <h3>美缝计算器首页 3.0 </h3>
+            <p>美缝计算器首页导航</p>
+            <a href="https://kevinludashi.github.io/kevinludashiMFJSQSY/">点这里-去看看</a>
+        </div>
+        <div class="bookmark">
+            <h3>历史记录计算器 2.0 </h3>
+            <p>一个网页计算器，带有历史记录功能，方便查看自己的计算公式历史</p>
+            <a href="https://kevinludashi.github.io/kevinludashiLSJSQ/">点这里-去看看</a>
+        </div>
+        <div class="bookmark">
+            <h3>美缝延米和价格计算器 3.0 </h3>
+            <p>用于计算美缝总米数和价格计算器</p>
+            <a href="https://kevinludashi.github.io/kevinludashiMFYMJSQ/">点这里-去看看</a>
+        </div>
+        <div class="bookmark">
+            <h3>美缝材料用量及延米计算器 3.0 </h3>
+            <p>用于计算美缝总米数和美缝材料用量计算器</p>
+            <a href="https://kevinludashi.github.io/kevinludashiMFCLYLJSQ/">点这里-去看看</a>
+        </div>
+        <div class="bookmark">
+            <h3>蓝旗任务发布 3.0 </h3>
+            <p>用于主持蓝旗单发布任务，自动创建任务表格</p>
+            <a href="https://kevinludashi.github.io/kevinRWFB/">点这里-去看看</a>
+        </div>
+        <div class="bookmark">
+            <h3>价格发布工具 2.0 </h3>
+            <p>用于创建美缝及其他产品价格表单</p>
+            <a href="https://kevinludashi.github.io/kevinMFJGFB/">点这里-去看看</a>
+        </div>
+        <div class="bookmark">
+            <h3>HTML/PDF/JPG 转换工具 3.0 </h3>
+            <p>用于html转pdf转jpg的小工具</p>
+            <a href="https://kevinludashi.github.io/HTMLZHGJ/">点这里-去看看</a>
+        </div>
+        <div class="bookmark">
+            <h3>代码实时编辑预览工具 1.0 </h3>
+            <p>用于html代码的实时编辑和实时预览工具</p>
+            <a href="https://kevinludashi.github.io/HTMLSSYLBJGJ/">点这里-去看看</a>
+        </div>
+        
+        <!-- 这里可以继续添加更多网址 -->
+    </div>
+
+    <footer>
+        <p>© © 20241121PM Kevin的个人网址收藏. 未经许可，禁止转载.</p>
+    </footer>
+
+    <script>
+        function searchBookmarks() {
+            var input = document.getElementById('search-input').value.toLowerCase();
+            var bookmarks = document.querySelectorAll('.bookmark');
+            var result = document.getElementById('search-result');
+            var found = false;
+
+            // 清除之前的搜索结果提示
+            result.innerHTML = '';
+            result.classList.remove('visible');
+
+            bookmarks.forEach(function(bookmark) {
+                var title = bookmark.querySelector('h3').textContent.toLowerCase();
+                var description = bookmark.querySelector('p').textContent.toLowerCase();
+
+                // 检查名称和简介是否包含搜索关键词
+                if (title.includes(input) || description.includes(input)) {
+                    bookmark.style.display = 'block'; // 显示匹配的收藏项
+                    if (!found) {
+                        result.innerHTML = '搜索结果：';
+                        result.classList.add('visible');
+                        found = true;
+                    }
+                    var resultItem = document.createElement('div');
+                    resultItem.innerHTML = '<a href="' + bookmark.querySelector('a').href + '">' + title + '</a>';
+                    result.appendChild(resultItem);
+                } else {
+                    bookmark.style.display = 'none'; // 隐藏不匹配的收藏项
+                }
+            });
+
+            // 如果没有找到匹配项
+            if (!found) {
+                result.innerHTML = '没有找到匹配的结果。';
+                result.classList.add('visible');
+            }
+        }
+    </script>
+
+</body>
+</html>
